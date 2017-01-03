@@ -1,8 +1,11 @@
 #include <QCoreApplication>
 
+
+#include "generator.h"
+
 int main(int argc, char *argv[])
 {
     QCoreApplication app(argc,argv);
-
-    app.exit(0);
+    int returnCode = Generator::generateCode(argv);
+    app.exit(returnCode);
 }

@@ -6,4 +6,8 @@ QT += core
 QT -= gui
 
 # Input
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    generator.cpp
+
+HEADERS += \
+    generator.h
