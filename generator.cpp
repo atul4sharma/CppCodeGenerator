@@ -35,7 +35,7 @@ int Generator::generateCode(char** argv){
     }
 
     generateHeaderFile(className, fileName, dataMembers, dataTypes, dataMembers.size());
-    //generateSourceFile(className, dataMembers, dataTypes, dataMembers.size());
+    generateSourceFile(className, fileName, dataMembers, dataTypes, dataMembers.size());
 
 }
 
@@ -92,6 +92,53 @@ void Generator::generateHeaderFile(const QString className, const QString fileNa
     headerFile.open(QIODevice::WriteOnly);
     headerFile.write(headerFileData);
     headerFile.commit();
+
+}
+
+
+void Generator::generateSourceFile(const QString className,
+                                   const QString fileName,
+                                   const QStringList dataMembers,
+                                   const QStringList dataTypes,
+                                   int sizeOfDataMembers)
+{
+
+    QByteArray sourceFileData;
+    sourceFileData.append("#include \"" + fileName + ".h\"\n\n");
+
+    sourceFileData.append(className + "::" + className + "(){\n\n}\n" );
+
+    //setter functions
+    for( int i = 0 ; i < sizeOfDataMembers ; i++){
+
+        QString tempName(dataMembers.at(i));
+        tempName = tempName.remove(0,1);
+        sourceFileData.append(QString("void "+ className +"::set" + tempName + "("
+                                      + dataTypes.at(i)+ " val){\n"));
+        sourceFileData.append(QString("\t" + dataMembers.at(i) + " = val ;\n"));
+
+        sourceFileData.append(QString("}\n\n"));
+    }
+
+    //getter functions
+    for( int i = 0 ; i < sizeOfDataMembers ; i++){
+
+        QString tempName(dataMembers.at(i));
+        tempName = tempName.remove(0,1);
+        sourceFileData.append(QString("const "+dataTypes.at(i) + " " +
+                                      className + "::get" + tempName + "(){\n"));
+        sourceFileData.append(QString("\treturn this->" + dataMembers.at(i) + ";\n"));
+
+        sourceFileData.append(QString("}\n\n"));
+    }
+
+
+
+    QSaveFile sourceFile(QString(fileName+".cpp"));
+    sourceFile.open(QIODevice::WriteOnly);
+    sourceFile.write(sourceFileData);
+    sourceFile.commit();
+
 
 }
 

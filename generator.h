@@ -15,6 +15,11 @@ public:
                             const QStringList dataTypes,
                             int sizeOfDataMembers);
 
+    static void generateSourceFile(const QString className,
+                            const QString fileName,
+                            const QStringList dataMembers,
+                            const QStringList dataTypes,
+                            int sizeOfDataMembers);
 };
 
 #endif // GENARATOR_H
