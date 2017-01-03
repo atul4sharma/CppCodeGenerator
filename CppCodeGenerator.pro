@@ -10,4 +10,5 @@ SOURCES += main.cpp \
     generator.cpp
 
 HEADERS += \
-    generator.h
+    generator.h \
+    defs.h

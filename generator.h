@@ -1,6 +1,8 @@
 #ifndef GENERATOR_H
 #define GENERATOR_H
 
+#include "defs.h"
+
 #include <QDebug>
 #include <QFile>
 #include <QSaveFile>
@@ -20,6 +22,8 @@ public:
                             const QStringList dataMembers,
                             const QStringList dataTypes,
                             int sizeOfDataMembers);
+
+    static void addTextStamp(QByteArray &data);
 };
 
 #endif // GENARATOR_H
