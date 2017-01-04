@@ -1,3 +1,5 @@
+// Input - classname,{datamember,datatype}
+
 #include <QCoreApplication>
 
 #include "generator.h"
